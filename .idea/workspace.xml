@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="597fe70e-124c-4ab9-a01a-13205b05f569" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.quasar/import-quasar.js" beforeDir="false" afterPath="$PROJECT_DIR$/.quasar/import-quasar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quasar.conf.js" beforeDir="false" afterPath="$PROJECT_DIR$/quasar.conf.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src-cordova/config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src-cordova/config.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src-cordova/platforms/android/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src-cordova/platforms/android/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src-cordova/platforms/android/app/src/main/res/xml/config.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src-cordova/platforms/android/app/src/main/res/xml/config.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boot/vuelidate.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/boot/vuelidate.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Form.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Form.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/FreeText.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FreeText.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/GenericComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/GenericComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/custom/MvpPicking.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/custom/MvpPicking.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/globalfunctions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/globalfunctions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Login.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Main.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Main.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/router/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/index.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="473b5b4b" />
+  <component name="FavoritesManager">
+    <favorites_list name="nyx_mob" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="$PROJECT_DIR$/.idea" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectId" id="1kh0FGhEF1xcWV2VeTBTld06dKV" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DEBUGGABLE_DEVICE" value="oneplus-oneplus_a3003-473b5b4b" />
+    <property name="DEBUGGABLE_PROCESS" value="org.cordova.quasar.mvpramassage" />
+    <property name="DEBUGGER_ID" value="Java" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="473b5b4b" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-11-23T13:20:32.065Z" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHOW_ALL_PROCESSES" value="false" />
+    <property name="android.sdk.path" value="$USER_HOME$/Android/Sdk" />
+    <property name="settings.editor.selected.configurable" value="ide.date.format" />
+  </component>
+  <component name="RunManager">
+    <configuration name="MvpRamassage" type="AndroidRunConfigurationType" factoryName="Android App">
+      <module name="bundle-manifest" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="do_nothing" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="597fe70e-124c-4ab9-a01a-13205b05f569" name="Default Changelist" comment="" />
+      <created>1606137410424</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1606137410424</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="2338" y="197" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1606137752782">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2338" y="197" key="#com.intellij.execution.impl.EditConfigurationsDialog/69.27.1851.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1606137752782" />
+    <state x="2738" y="306" width="274" height="465" key="AndroidProcessChooserDialog" timestamp="1606137660687">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2738" y="306" width="274" height="465" key="AndroidProcessChooserDialog/69.27.1851.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1606137660687" />
+    <state width="1874" height="354" key="GridCell.Tab.0.bottom" timestamp="1606137700499">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="354" key="GridCell.Tab.0.bottom/69.27.1851.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1606137700499" />
+    <state width="1874" height="354" key="GridCell.Tab.0.center" timestamp="1606137700499">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="354" key="GridCell.Tab.0.center/69.27.1851.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1606137700499" />
+    <state width="1874" height="354" key="GridCell.Tab.0.left" timestamp="1606137700499">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="354" key="GridCell.Tab.0.left/69.27.1851.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1606137700499" />
+    <state width="1874" height="354" key="GridCell.Tab.0.right" timestamp="1606137700499">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="354" key="GridCell.Tab.0.right/69.27.1851.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1606137700499" />
+    <state width="1874" height="354" key="GridCell.Tab.1.bottom" timestamp="1606137700500">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="354" key="GridCell.Tab.1.bottom/69.27.1851.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1606137700500" />
+    <state width="1874" height="354" key="GridCell.Tab.1.center" timestamp="1606137700500">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="354" key="GridCell.Tab.1.center/69.27.1851.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1606137700500" />
+    <state width="1874" height="354" key="GridCell.Tab.1.left" timestamp="1606137700499">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="354" key="GridCell.Tab.1.left/69.27.1851.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1606137700499" />
+    <state width="1874" height="354" key="GridCell.Tab.1.right" timestamp="1606137700500">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="354" key="GridCell.Tab.1.right/69.27.1851.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1606137700500" />
+    <state x="2062" y="98" width="1284" height="730" key="SettingsEditor" timestamp="1606138103367">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2062" y="98" width="1284" height="730" key="SettingsEditor/69.27.1851.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1606138103367" />
+    <state x="2536" y="366" key="com.intellij.ide.util.TipDialog" timestamp="1606137415916">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2536" y="366" key="com.intellij.ide.util.TipDialog/69.27.1851.1053/1920.0.1920.1080@1920.0.1920.1080" timestamp="1606137415916" />
+  </component>
+</project>

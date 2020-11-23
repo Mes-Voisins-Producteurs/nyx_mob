@@ -8,7 +8,7 @@
   },
   "installed_plugins": {
     "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": "io.cordova.mvp.ramassage"
+      "PACKAGE_NAME": "org.cordova.quasar.mvpramassage"
     }
   },
   "dependent_plugins": {}
