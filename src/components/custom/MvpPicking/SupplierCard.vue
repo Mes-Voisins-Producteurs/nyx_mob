@@ -11,7 +11,6 @@
               {{ supplier | uppercaseFirst }}
             </div>
             <div class="col-xs-12 col-sm-3 meta q-pa-sm full-heigth">
-              <!-- {{ status }} -->
               <OrderTags
                 :closed="closed"
                 :cart_complete="cart_complete"
@@ -98,7 +97,6 @@ export default {
   methods: {
     onCardClick() {
       var o = { id: this.id, index: this.index }
-      // this.$root.$emit('toggleDisplayEvent', o)
       this.$root.$emit('displayOrderEvent', o)
     },
     cardConfig() {

@@ -1,15 +1,19 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.cordova.mvp.ramassage" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="org.cordova.quasar.mvp" version="1.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <feature name="SplashScreen">
+        <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
+        <param name="onload" value="true" />
+    </feature>
     <feature name="Whitelist">
         <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
         <param name="onload" value="true" />
     </feature>
-    <name>nyx_mob</name>
-    <description>A Quasar Framework app</description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+    <name>MVP</name>
+    <description>Internal MVP application</description>
+    <author email="pierre@mesvoisinsproducteurs.com" href="http://cordova.io">
+        Pierre for MVP
     </author>
-    <content src="http://192.168.1.25:8888" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -20,5 +24,24 @@
     <allow-navigation href="about:*" />
     <allow-navigation href="http://192.168.1.25:8888" />
     <allow-intent href="market:*" />
+    <icon density="ldpi" src="res/android/ldpi.png" />
+    <icon density="mdpi" src="res/android/mdpi.png" />
+    <icon density="hdpi" src="res/android/hdpi.png" />
+    <icon density="xhdpi" src="res/android/xhdpi.png" />
+    <icon density="xxhdpi" src="res/android/xxhdpi.png" />
+    <icon density="xxxhdpi" src="res/android/xxxhdpi.png" />
+    <splash density="land-ldpi" src="res/screen/android/splash-land-ldpi.png" />
+    <splash density="port-ldpi" src="res/screen/android/splash-port-ldpi.png" />
+    <splash density="land-mdpi" src="res/screen/android/splash-land-mdpi.png" />
+    <splash density="port-mdpi" src="res/screen/android/splash-port-mdpi.png" />
+    <splash density="land-hdpi" src="res/screen/android/splash-land-hdpi.png" />
+    <splash density="port-hdpi" src="res/screen/android/splash-port-hdpi.png" />
+    <splash density="land-xhdpi" src="res/screen/android/splash-land-xhdpi.png" />
+    <splash density="port-xhdpi" src="res/screen/android/splash-port-xhdpi.png" />
+    <splash density="land-xxhdpi" src="res/screen/android/splash-land-xxhdpi.png" />
+    <splash density="port-xxhdpi" src="res/screen/android/splash-port-xxhdpi.png" />
+    <splash density="land-xxxhdpi" src="res/screen/android/splash-land-xxxhdpi.png" />
+    <splash density="port-xxxhdpi" src="res/screen/android/splash-port-xxxhdpi.png" />
     <preference name="loglevel" value="DEBUG" />
+    <preference name="SplashMaintainAspectRatio" value="true" />
 </widget>

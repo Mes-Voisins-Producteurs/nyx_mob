@@ -138,7 +138,6 @@
 
 <script>
 import moment from 'moment'
-// import DialogBox from 'components/custom/MvpPicking/DialogBox.vue'
 
 export default {
   name: 'MainMenu',
@@ -166,42 +165,6 @@ export default {
     }
   },
   methods: {
-    // openDialogBox(slug) {
-    //   var titles = {
-    //     date: 'Choisir une date',
-    //     range: 'Choisir une période',
-    //     other: 'other / testing purpose',
-    //     slackDirect: 'Envoyer un message sur slack'
-    //   }
-
-    //   this.$q
-    //     .dialog({
-    //       component: DialogBox,
-    //       parent: this,
-    //       target: slug,
-    //       title: titles[slug]
-    //     })
-    //     .onOk(event => {
-    //       //console.log('Dialog() => OK ', event.data)
-    //       if (slug === 'date' || slug === 'range') {
-    //         this.$parent.setNewDates(event.data.fr, event.data.to)
-    //       } else if (
-    //         slug === 'slackDirect' ||
-    //         slug === 'slackProblem' ||
-    //         slug === 'slackPo'
-    //       ) {
-    //         this.sendToSlack(event.data)
-    //       } else if (slug === 'other') {
-    //         console.log('i am the callback of other. Fear my anger !')
-    //       }
-    //     })
-    //     .onCancel(() => {
-    //       //console.log('Dialog() => Cancel')
-    //     })
-    //     .onDismiss(() => {
-    //       //console.log('Dialog() => I am triggered on both OK and Cancel')
-    //     })
-    // },
     today() {
       this.$emit('today')
     },
@@ -222,7 +185,6 @@ export default {
           color: 'green'
         })
       } catch (ex) {
-        console.log('Something goes wrong when posting to slack : ', ex)
         this.$q.notify({
           message: 'Un problème est survenu, veuillez re-essayer plus tard.',
           timeout: 5000,
@@ -231,16 +193,13 @@ export default {
       }
     },
     onDateSelect() {
-      console.log('selection : ', this.dateSelection)
       var o = {
         fr: moment(this.dateSelection, 'YYYY/MM/DD').startOf('day'),
         to: moment(this.dateSelection, 'YYYY/MM/DD').endOf('day')
       }
       this.$emit('newDates', { data: o })
-      // this.$parent.setNewDates(event.data.fr, event.data.to)
     },
     onRangeSelect() {
-      console.log('selection : ', this.dateSelection)
       var o = {
         fr: moment(this.dateSelection.from, 'YYYY/MM/DD').startOf('day'),
         to: moment(this.dateSelection.to, 'YYYY/MM/DD').endOf('day')

@@ -18,7 +18,6 @@
         <q-icon name="lock" color="white" />
       </q-badge>
       <q-badge :color="badgeColor" class="icon-spacer text-uppercase q-pa-xs">
-        <!-- {{ currentStatus() }} -->
         {{ textStatus }}
       </q-badge>
     </div>
@@ -63,7 +62,6 @@ export default {
   },
   methods: {},
   mounted() {
-    console.log(' debug ordertags.vue >>> has_dlc >>> ', this.has_dlc)
     if (this.cart_complete === 0) {
       // missing items
       this.badgeColor = 'orange-9'

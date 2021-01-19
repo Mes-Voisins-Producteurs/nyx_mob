@@ -1,14 +1,16 @@
 {
-  "name": "nyx_mob",
-  "version": "0.0.1",
-  "description": "A Quasar Framework app",
-  "productName": "nyx_mob",
-  "cordovaId": "",
-  "author": "lapin <va.mercier@gmail.com>",
+  "name": "mvp",
+  "version": "1.0.1",
+  "description": "Internal MVP application",
+  "productName": "MVP",
+  "cordovaId": "com.mesvoisinsproducteurs.mvp",
+  "author": "lapin <va.mercier@gmail.com> erreiP <pifour.dev@protonmail.com>",
   "private": true,
   "scripts": {
     "lint": "eslint --ext .js,.vue src",
-    "test": "echo \"No test specified\" && exit 0"
+    "test": "echo \"No test specified\" && exit 0",
+    "cordova:dev": "quasar dev -m cordova -T android -- --buildConfig=\"../build.cordova.json\"",
+    "cordova:build": "quasar build -m cordova -T android -- --buildConfig=\"../build.cordova.json\""
   },
   "dependencies": {
     "@quasar/app": "^2.1.6",

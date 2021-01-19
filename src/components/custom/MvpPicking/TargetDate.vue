@@ -56,16 +56,10 @@ export default {
     },
     onToday() {
       var from = moment().startOf('day')
-      // .unix() * 1000
-
       var to = moment().endOf('day')
-      // .unix() * 1000
-
       this.setNewDates(from, to)
     },
     onNewDates(event) {
-      // console.log('//////////////////////////', event)
-      // console.log('//////////////////////////', event.data.fr.format())
       this.setNewDates(event.data.fr, event.data.to)
     }
   },
