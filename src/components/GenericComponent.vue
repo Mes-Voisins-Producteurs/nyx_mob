@@ -1,14 +1,14 @@
 
 <template>
-  <div v-if="activeApp">
+<div>test</div>
+  <!-- <div v-if="activeApp">
     <div v-if="activeApp.type=='form'">
       <Form :config="activeApp"></Form>
     </div>
     <div v-else>
-      <!-- <component :config="currentApps.apps[0]" v-bind:is="currentApps.apps[0].config.controller" ></component> -->
       <component :config="activeApp" v-bind:is="activeApp.config.controller" ></component>
     </div>
-  </div>
+  </div> -->
 </template>
 
 
@@ -43,21 +43,12 @@ export default {
   },
   watch: {
     $route(to, from) {
-      // console.log('WATCHER ROUTE GENERIC COMPONENT')
       if(from.params.recid === to.params.recid) {
-        // console.log('Same recid, no need to change app')
         return
       }
 
-      // console.log('from')
-      // console.log(from)
-      // console.log('to')
-      // console.log(to)
-
       this.loading=true
       
-//      this.selectedTab=this.$route.params.recid
-
       this.$store.commit({
         type: "changeApp",
         data: this.$route.params.recid
@@ -79,7 +70,15 @@ export default {
       
     }
   },
+  beforeCreate: function() {
+    console.log('GenericComponent before created')
+  },
+  created: function() {
+    console.log('GenericComponent created')
+    
+  },
   mounted: function() {
+    console.log('GenericComponent mounted')
     
   },
   destroyed: function() {

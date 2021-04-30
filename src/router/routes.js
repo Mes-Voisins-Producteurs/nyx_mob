@@ -14,24 +14,24 @@ const routes = [
     path: '/main',
     name: 'Main',
     component: Main,
-    children: [
-      {
-        path: ':recid',
-        name: 'GenericComponent',
-        component: GenericComponent
-      },
-      {
-        path: ':recid/orders',
-        name: 'orders',
-        component: MvpPrepOrders
-      },
-      {
-        path: ':recid/orders/:orderId',
-        name: 'order-display',
-        component: ShowOrder,
-        props: true
-      }
-    ]
+    // children: [
+    //   // {
+    //   //   path: ':recid',
+    //   //   name: 'GenericComponent',
+    //   //   component: GenericComponent
+    //   // },
+    //   // {
+    //   //   path: ':recid/orders',
+    //   //   name: 'orders',
+    //   //   component: MvpPrepOrders
+    //   // },
+    //   // {
+    //   //   path: ':recid/orders/:orderId',
+    //   //   name: 'order-display',
+    //   //   component: ShowOrder,
+    //   //   props: true
+    //   // }
+    // ]
   }
 ]
 

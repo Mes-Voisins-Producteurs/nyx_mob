@@ -6,6 +6,7 @@ import moment from 'moment'
 import mvp from './custom/mvp'
 import mvpPrepOrders from './custom/mvpPrepOrders'
 import mvpPicking from './custom/mvpPicking'
+import GenericComponent from '../components/GenericComponent.vue'
 
 Vue.use(Vuex)
 
@@ -139,6 +140,47 @@ export default function(/* { ssrContext } */) {
         state.activeApp = state.filteredmenus[0].submenus[0].apps[0]
         state.maintitle = state.filteredmenus[0].submenus[0].loc_title
         state.maintitleicon = state.filteredmenus[0].submenus[0].icon
+
+        console.log(this.$router.options)
+
+        let { routes } = this.$router.options;
+        let routeData = routes.find(r => r.path === '/main');
+        routeData.children = []
+  
+        console.log(routeData)
+        
+        
+        let base_route =  {
+          path: ':recid',
+          name: 'GenericComponent',
+          component: GenericComponent
+        }
+        
+        
+        for (let i in state.filteredmenus) {
+          let menu = state.filteredmenus[i]
+          console.log(menu)
+          for (let j in menu.submenus) {
+            let submenu = menu.submenus[j]
+            for (let k in submenu.apps) {
+              let app = submenu.apps[k]
+              console.log(app.rec_id)
+
+
+              let child_route = JSON.parse(JSON.stringify(base_route))
+              child_route.path = app.rec_id
+              routeData.children.push(child_route)
+              
+            }
+          }
+        }
+        
+        this.$router.addRoutes([routeData])
+
+
+        console.log(this.$router.options)
+
+
 
         console.log('Login mutation done.')
       },
