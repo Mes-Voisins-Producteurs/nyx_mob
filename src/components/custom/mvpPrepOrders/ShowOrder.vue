@@ -21,9 +21,10 @@
               @click="goBackToList"
               icon="arrow_back_ios"
               size="md"
-              class="bg-dark text-white"
+              class=" text-dark"
               unelevated
               round
+              flat
             />
           </div>
 
