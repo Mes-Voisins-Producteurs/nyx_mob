@@ -244,6 +244,8 @@ import qboot_Bootaxios from 'boot/axios'
 
 import qboot_Bootvuelidate from 'boot/vuelidate'
 
+import qboot_Bootfirebase from 'boot/firebase'
+
 
 
 
@@ -281,7 +283,7 @@ async function start () {
   }
 
   const urlPath = window.location.href.replace(window.location.origin, '')
-  const bootFiles = [qboot_Booti18n,qboot_Bootaxios,qboot_Bootvuelidate]
+  const bootFiles = [qboot_Booti18n,qboot_Bootaxios,qboot_Bootvuelidate,qboot_Bootfirebase]
 
   for (let i = 0; hasRedirected === false && i < bootFiles.length; i++) {
     if (typeof bootFiles[i] !== 'function') {

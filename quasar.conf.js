@@ -3,7 +3,7 @@
 module.exports = function(ctx) {
   return {
     // app boot (/src/boot)
-    boot: ['i18n', 'axios', 'vuelidate'],
+    boot: ['i18n', 'axios', 'vuelidate', 'firebase'],
     css: ['app.styl'],
     extras: [
       'roboto-font',

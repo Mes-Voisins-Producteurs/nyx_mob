@@ -23,30 +23,28 @@
         :disable="loading"
         clearable
       />
-      <q-btn 
-        color="primary" 
+      <q-btn
+        color="primary"
         class="login-button"
         rounded
         size="lg"
         outline
         :loading="loading"
-        @click="submit">Login</q-btn>
+        @click="submit"
+        >Login</q-btn
+      >
     </div>
   </q-layout>
 </template>
 
 <script>
 import { required, email } from 'vuelidate/lib/validators'
-import axios from "axios";
-
-
-
-
+import axios from 'axios'
 
 export default {
-  data () {
+  data() {
     return {
-      form: {        
+      form: {
         login: '',
         password: ''
       },
@@ -60,16 +58,16 @@ export default {
     }
   },
   methods: {
-    submit () {
+    submit() {
       this.$v.form.$touch()
 
       if (this.$v.form.$error) {
         this.$q.notify({
-          message:'Unable to authenticate.',
-          type: "negative",
-          position: "bottom",
+          message: 'Unable to authenticate.',
+          type: 'negative',
+          position: 'bottom',
           closeBtn: true,
-          timeout:500
+          timeout: 500
         })
         this.loading = false
         return
@@ -86,81 +84,83 @@ export default {
         console.log(this.$store.getters.apiurl)
         const response = await axios.post(
           //this.$store.getters.apiurl + "cred/login",
-          this.$store.getters.apiurl + "cred/login",
-          { login: this.form.login, password: this.form.password, app: this.$store.getters.appName }
-        );
+          this.$store.getters.apiurl + 'cred/login',
+          {
+            login: this.form.login,
+            password: this.form.password,
+            app: this.$store.getters.appName
+          }
+        )
 
-        if (response.data.error == "") {
-          this.authenticate(response);
-        }
-        else {
+        if (response.data.error == '') {
+          this.authenticate(response)
+        } else {
           this.$q.notify({
-            message:response.data.error,
-            type: "negative",
-            position: "bottom",
+            message: response.data.error,
+            type: 'negative',
+            position: 'bottom',
             closeBtn: true,
-            timeout:500
+            timeout: 500
           })
-          this.loading = false 
+          this.loading = false
         }
-
       } catch (e) {
-        
-        this.loading = false 
-        console.log(e);
+        this.loading = false
+        console.log(e)
       }
-      this.loading = false 
+      this.loading = false
     },
     authenticate(response) {
       localStorage.authResponse = JSON.stringify(response)
 
-      this.$i18n.locale = response.data.cred.user.language;
-      response.data.cred.user.user = this.form.login;
+      this.$i18n.locale = response.data.cred.user.language
+      response.data.cred.user.user = this.form.login
       this.$store.commit({
-        type: "login",
+        type: 'login',
         data: response.data
-      });
+      })
 
-      let rec_id  = this.$store.getters.activeApp.rec_id
-      
+      let rec_id = this.$store.getters.activeApp.rec_id
+
       this.$store.commit({
-        type: "changeApp",
+        type: 'changeApp',
         data: rec_id
-      });
-      
-      let path = '/main/'+rec_id
+      })
 
-      console.log("pushing path", path)
-      this.$router.push(path);
+      let path = '/main/' + rec_id
+
+      console.log('pushing path', path)
+      this.$router.push(path)
       this.$q.notify({
-        title: this.$t("notifications.message"),
+        title: this.$t('notifications.message'),
         message:
-          this.$t("notifications.welcome") +
-          " v(" +
+          this.$t('notifications.welcome') +
+          ' v(' +
           response.data.version +
-          "/v1.0)",
-        type: "positive",
-        position: "bottom",
-        timeout:500
-      });
-      this.form.login=""
-      this.form.password=""
-      this.$store.dispatch("privileges");
-      this.$store.dispatch("filters");
+          '/v1.0)',
+        type: 'positive',
+        position: 'bottom',
+        timeout: 500
+      })
+      this.form.login = ''
+      this.form.password = ''
+      this.$store.dispatch('privileges')
+      this.$store.dispatch('filters')
     }
   },
   mounted: function() {
-    var vars = {};
-    window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-        vars[key] = value;
-    });
-    
-    if (vars["api"]!=undefined)
-    {  
-      this.$store.state.apiurl=vars["api"].split('#')[0];
+    var vars = {}
+    window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(
+      m,
+      key,
+      value
+    ) {
+      vars[key] = value
+    })
+
+    if (vars['api'] != undefined) {
+      this.$store.state.apiurl = vars['api'].split('#')[0]
     }
-    
-    
   }
 }
 </script>
@@ -168,7 +168,7 @@ export default {
 .login-container {
   position: absolute;
   top: 20%;
-  width: 80%; 
+  width: 80%;
   left: 10%;
   margin: 2px;
   border-radius: 5%;
@@ -200,6 +200,4 @@ export default {
   /*border: solid 2px var(--q-color-negative);*/
   /*border: solid 1px var(--q-color-red);*/
 }
-
-
 </style>

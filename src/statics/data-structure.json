@@ -1,0 +1,15 @@
+{
+  "users": {
+    "userid1": {
+      "name": "arnaud kaderi",
+      "email": "arnaud@mesvoisinsproducteurs.com",
+      "online": true
+    },
+
+    "userid2": {
+      "name": "toto kaderi",
+      "email": "toto@mesvoisinsproducteurs.com",
+      "online": true
+    }
+  }
+}
