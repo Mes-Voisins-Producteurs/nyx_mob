@@ -208,12 +208,15 @@ export default {
       'modeFilter'
     ]),
 
+    // TODO commande 19989
+
     filteredCurrentOrderItemsLength: function() {
       if (this.currentOrderItems == null) return 0
 
       if (this.modeFilter === 'fresh') {
         return this.freshItems.length
-      } else if (this.modeFilter === 'dry') {
+      }
+      if (this.modeFilter === 'dry') {
         return this.dryItems.length
       }
       return this.currentOrderItems.length
@@ -492,6 +495,11 @@ export default {
   updated() {
     console.log(this.freshItems.length)
     console.log(this.dryItems.length)
+    console.log(
+      'this is the number in which we have to substract => ',
+      this.filteredCurrentOrderItemsLength
+    )
+    console.log('this is the progress => ', this.progress)
   }
 }
 </script>
