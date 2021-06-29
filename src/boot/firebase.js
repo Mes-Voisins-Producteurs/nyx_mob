@@ -1,13 +1,14 @@
 // Firebase App (the core Firebase SDK) is always required and must be listed first
-import firebase from 'firebase/app'
-
-// If you enabled Analytics in your project, add the Firebase SDK for Analytics
-import 'firebase/analytics'
-
-// Add the Firebase products that you want to use
+import firebase from 'firebase'
+import 'firebase/app'
 import 'firebase/auth'
 
-let firebaseui = require('firebaseui')
+import * as firebaseui from 'firebaseui'
+import 'firebaseui/dist/firebaseui.css'
+
+// If you enabled Analytics in your project, add the Firebase SDK for Analytics
+
+// Add the Firebase products that you want to use
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -22,10 +23,48 @@ const firebaseConfig = {
 }
 // Initialize Firebase
 let firebaseApp = firebase.initializeApp(firebaseConfig)
-firebase.analytics()
 let firebaseAuth = firebaseApp.auth()
+//firebaseAuth.useEmulator('http://localhost:9099')
 
 // Initialize the FirebaseUI Widget using Firebase.
-let ui = new firebaseui.auth.AuthUI(firebaseAuth)
+//let ui = new firebaseui.auth.AuthUI(firebaseAuth)
+/*
+firebaseApp
+  .auth()
+  .createUserWithEmailAndPassword(email, password)
+  .then(userCredential => {
+    // Signed in
+    let user = userCredential.user
+    // ...
+  })
+  .catch(error => {
+    let errorCode = error.code
+    let errorMessage = error.message
+    // ..
+  })
+
+firebaseApp
+  .auth()
+  .signInWithEmailAndPassword(email, password)
+  .then(userCredential => {
+    // Signed in
+    let user = userCredential.user
+    // ...
+  })
+  .catch(error => {
+    let errorCode = error.code
+    let errorMessage = error.message
+  })
+
+firebaseApp
+  .auth()
+  .signOut()
+  .then(() => {
+    // Sign-out successful.
+  })
+  .catch(error => {
+    // An error happened.
+  })
+*/
 
 export { firebaseAuth }

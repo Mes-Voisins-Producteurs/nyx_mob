@@ -33,6 +33,13 @@
         @click="submit"
         >Login</q-btn
       >
+
+      <GoogleLogin
+        :params="params"
+        :renderParams="renderParams"
+        :onSuccess="onSuccess"
+        :onFailure="onFailure"
+      ></GoogleLogin>
     </div>
   </q-layout>
 </template>
@@ -40,15 +47,25 @@
 <script>
 import { required, email } from 'vuelidate/lib/validators'
 import axios from 'axios'
+import GoogleLogin from 'vue-google-login'
 
 export default {
+  components: { GoogleLogin },
   data() {
     return {
       form: {
         login: '',
         password: ''
       },
-      loading: false
+      loading: false,
+      params: {
+        client_id: '598264318577-qmq6e42075se2ern6mu78otpoahf3a39'
+      },
+      renderParams: {
+        width: 250,
+        height: 50,
+        longtitle: true
+      }
     }
   },
   validations: {
@@ -146,8 +163,24 @@ export default {
       this.form.password = ''
       this.$store.dispatch('privileges')
       this.$store.dispatch('filters')
+    },
+    onSignIn() {
+      let auth2 = gapi.auth2.getAuthInstance()
+      auth2.signIn()
+    },
+
+    onSuccess(googleUser) {
+      console.log(googleUser)
+
+      // This only gets the user information: id, name, imageUrl and email
+      console.log(googleUser.getBasicProfile())
+    },
+
+    onFailure(googleUser) {
+      console.log('not authentificated')
     }
   },
+
   mounted: function() {
     var vars = {}
     window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(
@@ -161,6 +194,22 @@ export default {
     if (vars['api'] != undefined) {
       this.$store.state.apiurl = vars['api'].split('#')[0]
     }
+
+    let metaAttribute = document.createElement('meta')
+    metaAttribute.setAttribute('name', 'google-signin-client_id')
+    metaAttribute.setAttribute(
+      'content',
+      '598264318577-qmq6e42075se2ern6mu78otpoahf3a39.apps.googleusercontent.com'
+    )
+    document.head.appendChild(metaAttribute)
+
+    let signInScript = document.createElement('script')
+    signInScript.setAttribute('src', 'https://apis.google.com/js/api.js')
+    document.head.appendChild(signInScript)
+
+    gapi.load('auth2', function() {
+      gapi.auth2.init()
+    })
   }
 }
 </script>
