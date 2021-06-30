@@ -127,6 +127,7 @@ export default {
       }
       this.loading = false
     },
+
     authenticate(response) {
       localStorage.authResponse = JSON.stringify(response)
 
@@ -164,10 +165,13 @@ export default {
       this.$store.dispatch('privileges')
       this.$store.dispatch('filters')
     },
+
+    /*
     onSignIn() {
       let auth2 = gapi.auth2.getAuthInstance()
       auth2.signIn()
     },
+     */
 
     onSuccess(googleUser) {
       console.log(googleUser)

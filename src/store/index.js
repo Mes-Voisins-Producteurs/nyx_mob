@@ -201,6 +201,7 @@ export default function(/* { ssrContext } */) {
           console.log('send forcetime')
         }
       },
+
       updateRecord(state, payload) {
         var url =
           state.apiurl +
@@ -222,6 +223,7 @@ export default function(/* { ssrContext } */) {
             console.log(error)
           })
       },
+
       sendMessage(state, payload) {
         console.log('Send Message')
 
