@@ -37,9 +37,12 @@
       <GoogleLogin
         :params="params"
         :renderParams="renderParams"
-        :onSuccess="onSuccess"
-        :onFailure="onFailure"
+        :onSuccess="onSignIn"
       ></GoogleLogin>
+
+      <q-btn @click="signOut">
+        Sign out
+      </q-btn>
     </div>
   </q-layout>
 </template>
@@ -75,6 +78,19 @@ export default {
     }
   },
   methods: {
+    onSignIn(googleUser) {
+      let profile = googleUser.getBasicProfile()
+      console.log('ID: ' + profile.getId()) // Do not send to your backend! Use an ID token instead.
+      console.log('Name: ' + profile.getName())
+      console.log('Image URL: ' + profile.getImageUrl())
+      console.log('Email: ' + profile.getEmail()) // This is null if the 'email' scope is not present.
+    },
+    signOut() {
+      let auth2 = gapi.auth2.getAuthInstance()
+      auth2.signOut().then(function() {
+        console.log('User signed out.')
+      })
+    },
     submit() {
       this.$v.form.$touch()
 
@@ -93,7 +109,6 @@ export default {
       this.validateUser()
       // ...
     },
-
     async validateUser() {
       this.loading = true
 
@@ -127,7 +142,6 @@ export default {
       }
       this.loading = false
     },
-
     authenticate(response) {
       localStorage.authResponse = JSON.stringify(response)
 
@@ -164,24 +178,6 @@ export default {
       this.form.password = ''
       this.$store.dispatch('privileges')
       this.$store.dispatch('filters')
-    },
-
-    /*
-    onSignIn() {
-      let auth2 = gapi.auth2.getAuthInstance()
-      auth2.signIn()
-    },
-     */
-
-    onSuccess(googleUser) {
-      console.log(googleUser)
-
-      // This only gets the user information: id, name, imageUrl and email
-      console.log(googleUser.getBasicProfile())
-    },
-
-    onFailure(googleUser) {
-      console.log('not authentificated')
     }
   },
 
@@ -208,12 +204,10 @@ export default {
     document.head.appendChild(metaAttribute)
 
     let signInScript = document.createElement('script')
-    signInScript.setAttribute('src', 'https://apis.google.com/js/api.js')
+    signInScript.setAttribute('src', 'https://apis.google.com/js/platform.js')
+    signInScript.setAttribute('async', '')
+    signInScript.setAttribute('defer', '')
     document.head.appendChild(signInScript)
-
-    gapi.load('auth2', function() {
-      gapi.auth2.init()
-    })
   }
 }
 </script>
