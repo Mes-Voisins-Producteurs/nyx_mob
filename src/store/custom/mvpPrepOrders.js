@@ -302,6 +302,14 @@ export default {
         .then(response => {
           Loading.hide()
           let orders = response.data.records
+          orders.sort((a, b) => {
+            return a._id < b._id
+              ? -1
+              : a._source.tags.split(',').includes(' express') &&
+                !b._source.tags.split(',').includes(' express')
+              ? -1
+              : 1
+          })
 
           commit('mutate_allOrders', orders)
         })

@@ -1,33 +1,38 @@
 <template>
   <q-pull-to-refresh @refresh="refresh">
     <q-list class="flex row">
+      <div
+        v-if="unprepared.length > 0"
+        class="row text-italic text-white col-12 justify-center text-bold text-subtitle1  bg-grey-6"
+      >
+        Commandes non préparées
+      </div>
       <OrderCard
-        v-for="(order, idx) in ordersToShow
-          .sort((a, b) => {
-            return a._id < b._id
-              ? -1
-              : a._source.tags.split(',').includes(' express') &&
-                !b._source.tags.split(',').includes(' express')
-              ? -1
-              : 1
-          })
-          .sort((a, b) => {
-            return (a._source.prep_status === 'unfinished' &&
-            (b._source.prep_status === 'finished' ||
-              b._source.prep_status === 'finishedWithRemb' ||
-              b._source.prep_status === 'finishedWithReplaced')
-              ? -1
-              : a._source.prep_status === '' ||
-                a._source.prep_status === undefined) &&
-              !(
-                b._source.prep_status === '' ||
-                b._source.prep_status === undefined
-              )
-              ? -1
-              : 1
-          })"
+        v-for="(order, idx) in unprepared"
         :order="order"
-        :key="idx"
+        :key="idx + 'unprepared'"
+      />
+      <div
+        v-if="unfinished.length > 0"
+        class="row col-12 text-white bg-grey-6 text-italic text-bold text-subtitle1 justify-center  bg-blue-2 "
+      >
+        Préparation non finie
+      </div>
+      <OrderCard
+        v-for="(order, idx) in unfinished"
+        :order="order"
+        :key="idx + 'unfinished'"
+      />
+      <div
+        v-if="finished.length > 0"
+        class="row col-12 text-white bg-grey-6 text-italic text-bold text-subtitle1 justify-center  bg-blue-2 "
+      >
+        Préparation finie
+      </div>
+      <OrderCard
+        v-for="(order, idx) in finished"
+        :order="order"
+        :key="idx + 'finished'"
       />
     </q-list>
   </q-pull-to-refresh>
@@ -48,7 +53,27 @@ export default {
     }
   },
   computed: {
-    ...mapState('mvpPrep', ['modeFilter', 'openFinishedOrders'])
+    ...mapState('mvpPrep', ['modeFilter', 'openFinishedOrders']),
+    unprepared() {
+      return this.ordersToShow.filter(
+        elt =>
+          elt._source.prep_status === undefined ||
+          elt._source.prep_status === ''
+      )
+    },
+    unfinished() {
+      return this.ordersToShow.filter(
+        elt => elt._source.prep_status === 'unfinished'
+      )
+    },
+    finished() {
+      return this.ordersToShow.filter(
+        elt =>
+          elt._source.prep_status === 'finished' ||
+          elt._source.prep_status === 'finishedWithRemb' ||
+          elt._source.prep_status === 'finishedWithReplaced'
+      )
+    }
   },
   components: { OrderCard },
   methods: {

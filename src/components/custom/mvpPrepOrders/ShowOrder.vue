@@ -156,7 +156,6 @@
 <script>
 // TODO   <q-list-header>Files</q-list-header>
 
-// TODO show if the internet connexion is low or inexistant
 import OrderItems from './OrderItems'
 import moment from 'moment'
 import { mapState, mapGetters } from 'vuex'
@@ -424,8 +423,6 @@ export default {
       })
     },
 
-    // TODO deploy app to correct the name of the person who blocked the order
-
     updateOrderStatus() {
       this.currentOrder._source.prep_status = 'started'
       this.currentOrder._source.blocker = this.userName
@@ -460,8 +457,6 @@ export default {
       Loading.hide()
     }
   },
-
-  // TODO nom de l'article pouvoir scroller horizontalement pour voir le nom complet
 
   watch: {
     async $route(to, from) {
