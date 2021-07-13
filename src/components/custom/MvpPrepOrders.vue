@@ -4,10 +4,7 @@
       <ShowOrder :orderId="urlOrderId"></ShowOrder>
     </div>
     <div v-else-if="urlOrderList">
-      <div
-        class=" flex full-width"
-        style="min-height: 400px; padding-top: 160px;"
-      >
+      <div style="min-height: 400px; padding-top: 160px;">
         <OrdersList :ordersToShow="ordersToDisplay" />
       </div>
       <q-page-sticky expand position="top" class="bg-blue-grey-1 q-pt-md">
@@ -59,6 +56,8 @@ import OrdersDashboard from './mvpPrepOrders/OrdersDashboard'
 import mixin from './mvpPrepOrders/mixin'
 
 export default {
+  // TODO prendre en compte dans le listing la tournée des livreurs
+
   name: 'MvpPrepOrders',
   mixins: [mixin],
   components: {
@@ -80,14 +79,13 @@ export default {
     ...mapGetters(['creds']),
     ...mapState('mvpPrep', ['orders', 'openFinishedOrders']),
     urlOrderId() {
-      console.log(this.$route.fullPath)
+      // console.log(this.$route.fullPath)
       let url = this.$route.fullPath
       if (url.indexOf('showOrder=') > -1) {
         return url.split('showOrder=')[1]
       }
       return null
     },
-
     urlOrderList() {
       let url = this.$route.fullPath
       if (url.indexOf('ordersList') > -1) {
@@ -95,7 +93,6 @@ export default {
       }
       return null
     },
-
     modeFilter: {
       get() {
         return this.$store.getters['mvpPrep/modeFilter']
@@ -125,12 +122,12 @@ export default {
         this.$store.commit('mvpPrep/mutate_lockFresh', true)
         orderList = this.orders.filter(order => order._source.has_frais)
       }
-      let finished
       if (this.openFinishedOrders) {
         return orderList.filter(
           elt =>
             elt._source.prep_status === 'finished' ||
-            elt._source.prep_status === 'finishedWithRemb'
+            elt._source.prep_status === 'finishedWithRemb' ||
+            elt._source.prep_status === 'finishedWithReplaced'
         )
       }
       return orderList
@@ -141,7 +138,7 @@ export default {
     targetDate: {
       handler: function() {
         this.$store.dispatch('mvpPrep/getOrders').then(() => {
-          console.log(this.orders)
+          // console.log(this.orders)
         })
       },
       deep: true

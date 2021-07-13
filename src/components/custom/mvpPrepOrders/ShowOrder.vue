@@ -2,7 +2,7 @@
   <q-page-container>
     <q-page style="padding-top: 158px;">
       <div>
-        <q-tab-panels animated v-model="tab">
+        <q-tab-panels animated v-model="tab" :keep-alive="true">
           <q-tab-panel class="q-pa-none" name="articles">
             <OrderItems :preparedProducts="preparedProducts" />
           </q-tab-panel>
@@ -40,14 +40,14 @@
             style="height: 100px;   "
           >
             <q-icon
-              size="40px"
+              size="30px"
               name="directions_bike"
               class="bg-dark"
-              style="border-radius: 50px; padding: 10px; color: white; width: 40px;"
+              style="border-radius: 60px; padding: 10px; color: white; width: 30px;"
             ></q-icon
             >&nbsp; &nbsp;
             <div class="row flex text-dark">
-              <div class="col-xs-12" style="font-weight: bold;">
+              <div class="col-xs-12 text-h6" style="font-weight: bold;">
                 #{{ orderId }}
                 <br />
               </div>
@@ -63,13 +63,13 @@
             style="height: 100px;   "
           >
             <q-icon
-              size="40px"
+              size="30px"
               name="shopping_bag"
-              style="background-color: black; border-radius: 50px; padding: 10px; color: white; width: 40px"
+              style="background-color: black; border-radius: 60px; padding: 10px; color: white; width: 30px"
             ></q-icon
             >&nbsp; &nbsp;
             <div class="row flex">
-              <div class="col-xs-12" style="font-weight: bold;">
+              <div class="col-xs-12 text-h6" style="font-weight: bold;">
                 #{{ orderId }}
                 <br />
               </div>
@@ -157,14 +157,12 @@
 <script>
 // TODO   <q-list-header>Files</q-list-header>
 
-// TODO show if the internet connexion is low or inexistant
 import OrderItems from './OrderItems'
 import moment from 'moment'
 import { mapState, mapGetters } from 'vuex'
 import CallAction from './CallAction'
 import OrderItem from './OrderItem'
 import ItemsFilter from './ItemsFilter'
-import OrderTabs from './OrderTabs'
 import ClientInfos from './ClientInfos'
 import OrderInfos from './OrderInfos'
 import { Loading } from 'quasar'
@@ -177,7 +175,6 @@ export default {
     CallAction,
     OrderItems,
     OrderItem,
-    OrderTabs,
     ClientInfos,
     OrderInfos
   },
@@ -187,9 +184,6 @@ export default {
       filterHasSec: 'Sec',
       filterHasFrais: 'Frais',
       isEditing: false,
-      open: false,
-      openFresh: false,
-      openDry: false,
       tab: 'articles'
     }
   },
@@ -207,28 +201,18 @@ export default {
       'preparedItems',
       'freshItems',
       'dryItems',
-      'preparedFresh',
-      'preparedDry',
-      'missingDry',
-      'missingFresh',
-      'rembDry',
-      'rembFresh',
       'orders',
       'modeFilter'
     ]),
 
     filteredCurrentOrderItemsLength: function() {
-      if (this.currentOrderItems == null) return 0
-
-      return this.currentOrderItems.filter(element => {
-        if (this.modeFilter === 'fresh') {
-          return element._source.fresh
-        } else if (this.modeFilter === 'dry') {
-          return !element._source.fresh
-        } else {
-          return true
-        }
-      }).length
+      if (this.modeFilter === 'fresh') {
+        return this.freshItems.length
+      }
+      if (this.modeFilter === 'dry') {
+        return this.dryItems.length
+      }
+      return this.currentOrderItems.length
     },
 
     currentOrder: {
@@ -240,32 +224,31 @@ export default {
       }
     },
     progress() {
-      console.log('you have entered progress computed')
       if (_.isEmpty(this.currentOrder)) {
         return 0
       }
 
-      if (this.currentOrderItems == null || _.isEmpty(this.currentOrderItems))
+      if (this.currentOrderItems == [] || _.isEmpty(this.currentOrderItems))
         return 0
 
-      return this.currentOrderItems
-        .filter(element => {
-          if (this.modeFilter === 'fresh') {
-            return element._source.fresh
-          } else if (this.modeFilter === 'dry') {
-            return !element._source.fresh
-          } else {
-            return true
-          }
-        })
-        .filter(element => {
-          if (
-            element._source.prep_status != null &&
-            element._source.prep_status != ''
-          )
-            return true
-          else return false
-        }).length
+      let listOfItems
+      if (this.modeFilter === 'fresh') {
+        listOfItems = this.freshItems
+      } else if (this.modeFilter === 'dry') {
+        listOfItems = this.dryItems
+      } else {
+        listOfItems = this.currentOrderItems
+      }
+      return listOfItems.filter(element => {
+        if (
+          element._source.prep_status != null &&
+          element._source.prep_status != ''
+        )
+          return true
+        else {
+          return false
+        }
+      }).length
     },
 
     userName: function() {
@@ -275,169 +258,81 @@ export default {
   props: ['orderId'],
   methods: {
     isFrais(item) {
-      return item._source.fresh
+      return item._source.fresh || item._source.frais
     },
 
     goBackToList() {
-      let query = Object.assign({}, this.$route.query)
-      delete query.showOrder
-      this.$router.replace({ query })
-      this.$router.push({
-        query: { path: 'ordersList' }
-      })
+      setTimeout(() => {
+        this.unlock()
+        setTimeout(() => {
+          let query = Object.assign({}, this.$route.query)
+          delete query.showOrder
+          this.$router.replace({ query })
+          this.$router.push({
+            query: { path: 'ordersList' }
+          })
+        }, 500)
+      }, 200)
     },
 
     async unlock() {
-      console.log('I am in unlock so wowo that is amazing')
-      let fresh = this.preparedProducts.filter(
-        product =>
-          product._source.fresh && product._source.prep_status === 'success'
-      )
-
-      let dry = this.preparedProducts.filter(
-        product =>
-          !product._source.fresh && product._source.prep_status === 'success'
-      )
-
-      let manqFresh = this.preparedProducts.filter(
-        product =>
-          product._source.fresh && product._source.prep_status === 'manq'
-      )
-
-      let manqDry = this.preparedProducts.filter(
-        product =>
-          !product._source.fresh && product._source.prep_status === 'manq'
-      )
-
-      let rembFresh = this.preparedProducts.filter(
-        product =>
-          product._source.fresh && product._source.prep_status === 'remb'
-      )
-
-      let rembDry = this.preparedProducts.filter(
-        product =>
-          !product._source.fresh && product._source.prep_status === 'remb'
-      )
-
-      this.currentOrder._source.freshItems = this.freshItems
-      this.currentOrder._source.dryItems = this.dryItems
-
-      if (this.preparedFresh.length === 0) {
-        this.currentOrder._source.preparedFresh = []
-        this.updateArrayPreparedItems(
-          fresh,
-          this.currentOrder._source.preparedFresh
-        )
-      } else {
-        this.updateArrayPreparedItems(
-          fresh,
-          this.currentOrder._source.preparedFresh
-        )
-      }
-
-      if (this.preparedDry.length === 0) {
-        this.currentOrder._source.preparedDry = []
-
-        this.updateArrayPreparedItems(
-          dry,
-          this.currentOrder._source.preparedDry
-        )
-      } else {
-        this.updateArrayPreparedItems(
-          dry,
-          this.currentOrder._source.preparedDry
-        )
-      }
-
-      if (this.missingFresh.length === 0) {
-        this.currentOrder._source.missingFresh = []
-        this.updateArrayPreparedItems(
-          manqFresh,
-          this.currentOrder._source.missingFresh
-        )
-      } else {
-        this.updateArrayPreparedItems(
-          manqFresh,
-          this.currentOrder._source.missingFresh
-        )
-      }
-
-      if (this.missingDry.length === 0) {
-        this.currentOrder._source.missingDry = []
-        this.updateArrayPreparedItems(
-          manqDry,
-          this.currentOrder._source.missingDry
-        )
-      } else {
-        this.updateArrayPreparedItems(
-          manqDry,
-          this.currentOrder._source.missingDry
-        )
-      }
-
-      if (this.rembFresh.length === 0) {
-        this.currentOrder._source.rembFresh = []
-        this.updateArrayPreparedItems(
-          rembFresh,
-          this.currentOrder._source.rembFresh
-        )
-      } else {
-        this.updateArrayPreparedItems(
-          rembFresh,
-          this.currentOrder._source.rembFresh
-        )
-      }
-
-      if (this.rembDry.length === 0) {
-        this.currentOrder._source.rembDry = []
-        this.updateArrayPreparedItems(
-          rembDry,
-          this.currentOrder._source.rembDry
-        )
-      } else {
-        this.updateArrayPreparedItems(
-          rembDry,
-          this.currentOrder._source.rembDry
-        )
-      }
-
+      console.log('UNLOCK')
       this.$store.commit('mvpPrep/mutate_preparedItems', this.preparedProducts)
       if (this.preparedProducts.length > 0) {
-        console.log('we are going to updateOrders on the server')
         await this.$store.dispatch('mvpPrep/updateOrderItems', {
           line_items: this.preparedProducts
         })
       }
       await this.sendUnlockOrder()
-      this.$store.commit('mvpPrep/mutate_currentOrderItems', [])
-      await this.$store.dispatch('mvpPrep/getOrders')
+      //this.$store.commit('mvpPrep/mutate_currentOrderItems', [])
+      //await this.$store.dispatch('mvpPrep/getOrders')
     },
 
     async sendUnlockOrder() {
-      console.log('i am in sendunlockorder')
-
-      console.log(
-        'these are current order dry items length ',
-        this.dryItems.length
-      )
-
-      console.log(
-        'these are current Order fresh Items length ',
-        this.freshItems.length
-      )
+      let rembDry = this.currentOrderItems.filter(
+        elt =>
+          !(elt._source.fresh || elt._source.frais) &&
+          elt._source.prep_status === 'remb'
+      ).length
+      let rembFresh = this.currentOrderItems.filter(
+        elt =>
+          (elt._source.fresh || elt._source.frais) &&
+          elt._source.prep_status === 'remb'
+      ).length
+      let preparedDry = this.currentOrderItems.filter(
+        elt =>
+          !(elt._source.fresh || elt._source.frais) &&
+          elt._source.prep_status === 'success'
+      ).length
+      let preparedFresh = this.currentOrderItems.filter(
+        elt =>
+          (elt._source.fresh || elt._source.frais) &&
+          elt._source.prep_status === 'success'
+      ).length
+      let replacedFresh = this.currentOrderItems.filter(
+        elt =>
+          (elt._source.fresh || elt._source.frais) &&
+          elt._source.prep_status === 'replaced'
+      ).length
+      let replacedDry = this.currentOrderItems.filter(
+        elt =>
+          !(elt._source.fresh || elt._source.frais) &&
+          elt._source.prep_status === 'replaced'
+      ).length
 
       if (
-        this.currentOrder._source.rembDry.length +
-          this.currentOrder._source.rembFresh.length +
-          this.currentOrder._source.preparedFresh.length +
-          this.currentOrder._source.preparedDry.length ===
+        replacedDry +
+          replacedFresh +
+          rembDry +
+          rembFresh +
+          preparedFresh +
+          preparedDry ===
         this.freshItems.length + this.dryItems.length
       ) {
-        if (
-          this.currentOrder._source.rembDry.length > 0 ||
-          this.currentOrder._source.rembFresh.length > 0
-        ) {
+        if (rembDry > 0 || rembFresh > 0) {
           this.currentOrder._source.prep_status = 'finishedWithRemb'
+        } else if (replacedDry > 0 || replacedFresh > 0) {
+          this.currentOrder._source.prep_status = 'finishedWithReplaced'
         } else {
           this.currentOrder._source.prep_status = 'finished'
         }
@@ -447,46 +342,24 @@ export default {
       ) {
         this.currentOrder._source.prep_status = ''
       } else if (
-        this.currentOrder._source.rembDry.length +
-          this.currentOrder._source.preparedDry.length ===
-        this.dryItems.length
+        replacedDry + rembDry + preparedDry === this.dryItems.length &&
+        this.dryItems.length !== 0
       ) {
-        console.log(
-          'these are rembdry length ',
-          this.currentOrder._source.rembDry.length
-        )
-        console.log(
-          'these are okdry length ',
-          this.currentOrder._source.preparedDry.length
-        )
-
         this.currentOrder._source.intermediaryStatus = 'sec'
         this.currentOrder._source.prep_status = 'unfinished'
       } else if (
-        this.currentOrder._source.rembFresh.length +
-          this.currentOrder._source.preparedFresh.length ===
-        this.freshItems.length
+        replacedFresh + rembFresh + preparedFresh === this.freshItems.length &&
+        this.freshItems.length !== 0
       ) {
-        console.log(
-          'these are rembFresh length ',
-          this.currentOrder._source.rembFresh.length
-        )
-        console.log(
-          'these are okFresh length ',
-          this.currentOrder._source.preparedFresh.length
-        )
-
         this.currentOrder._source.intermediaryStatus = 'frais'
         this.currentOrder._source.prep_status = 'unfinished'
       } else {
         this.currentOrder._source.prep_status = 'unfinished'
       }
 
-      console.log(
-        'olé olé olé .... here is our master at work   ',
-        this.currentOrder._source.intermediaryStatus
-      )
-
+      if (this.itemsClicked > 0) {
+        this.currentOrder._source.preparateur = this.userName
+      }
       this.currentOrder._source.lock = false
       this.currentOrder._source.updatedAt = moment().format(
         'YYYY-MM-DDTHH:mm:ss.SSSSSSZ'
@@ -496,44 +369,8 @@ export default {
         type: 'mvpPrep/updateOrder',
         data: this.currentOrder
       })
-    },
 
-    updateArrayPreparedItems(preparedArray, arrayToInsertIn) {
-      preparedArray.map(item =>
-        this.addProductToPrepared(
-          [
-            this.currentOrder._source.preparedDry,
-            this.currentOrder._source.missingDry,
-            this.currentOrder._source.rembDry,
-            this.currentOrder._source.preparedFresh,
-            this.currentOrder._source.missingFresh,
-            this.currentOrder._source.rembFresh
-          ],
-          arrayToInsertIn,
-          item
-        )
-      )
-    },
-
-    addProductToPrepared(productsArray, arrayToInsertIn, product) {
-      productsArray.forEach(products => {
-        if (products === arrayToInsertIn) {
-          console.log('ok equality between the two arrays')
-          if (products.filter(item => item._id === product._id).length === 0) {
-            arrayToInsertIn.push(product)
-          }
-        } else {
-          if (products.filter(item => item._id === product._id).length > 0) {
-            this.update(products, product)
-            console.log('element removed from ', products)
-          }
-        }
-      })
-    },
-
-    update(products, product) {
-      const eltIdx = products.findIndex(elt => elt._id === product._id)
-      products.splice(eltIdx, 1)
+      console.log('mvpPrep/updateOrder')
     },
 
     preventNav(event) {
@@ -579,16 +416,18 @@ export default {
         actions: [
           {
             handler: () => {
-              console.log('wooow')
+              // console.log('wooow')
             }
           }
         ],
-        timeout: 500
+        timeout: 300
       })
     },
 
     updateOrderStatus() {
       this.currentOrder._source.prep_status = 'started'
+      this.currentOrder._source.blocker = this.userName
+
       this.currentOrder._source.lock = true
       this.currentOrder._source.lock_type =
         this.modeFilter === 'fresh'
@@ -604,6 +443,10 @@ export default {
         type: 'mvpPrep/updateOrder',
         data: this.currentOrder
       })
+      console.log(
+        'I have updated my order and this is its status ',
+        this.currentOrder._source.prep_status
+      )
     },
 
     async prepareData() {
@@ -613,8 +456,6 @@ export default {
       await this.$store.dispatch('mvpPrep/requestOrder', this.orderId)
       await this.updateOrderStatus()
       Loading.hide()
-      console.log('these are the items sent when the card was cliked')
-      console.log(this.currentOrderItems)
     }
   },
 
@@ -627,38 +468,36 @@ export default {
       if (this.modeFilter === 'fresh') {
         if (
           newValue ===
-            this.currentOrderItems.filter(elt => elt._source.fresh).length &&
+            this.currentOrderItems.filter(
+              elt => elt._source.fresh || elt._source.frais
+            ).length &&
           this.itemsClickedFresh > 0
         ) {
           this.showNotif('center')
-          setTimeout(() => {
-            this.goBackToList()
-          }, 2500)
         }
-        this.openFresh = true
       } else if (this.modeFilter === 'dry') {
         if (
           newValue ===
-            this.currentOrderItems.filter(elt => !elt._source.fresh).length &&
+            this.currentOrderItems.filter(
+              elt => !(elt._source.fresh || elt._source.frais)
+            ).length &&
           this.itemsClickedDry > 0
         ) {
           this.showNotif('center')
-          setTimeout(() => {
-            this.goBackToList()
-          }, 2500)
         }
-        this.openDry = true
       } else if (this.modeFilter === 'all') {
         if (
           newValue === this.currentOrderItems.length &&
           this.itemsClicked > 0
         ) {
           this.showNotif('center')
+          /*
           setTimeout(() => {
             this.goBackToList()
-          }, 2500)
+          }, 1000)
+
+           */
         }
-        this.open = true
       }
     }
   },
@@ -676,7 +515,13 @@ export default {
 
   destroyed() {
     window.removeEventListener('beforeunload', this.preventNav)
-    this.unlock()
+    this.$store.commit('mvpPrep/mutate_currentOrderItems', [])
+    // this.unlock()
+  },
+
+  updated() {
+    console.log(this.freshItems.length)
+    console.log(this.dryItems.length)
   }
 }
 </script>

@@ -46,7 +46,8 @@
                 if (elt._source.prep_status !== undefined) {
                   return (
                     elt._source.prep_status === 'finished' ||
-                    elt._source.prep_status === 'finishedWithRemb'
+                    elt._source.prep_status === 'finishedWithRemb' ||
+                    elt._source.prep_status === 'finishedWithReplaced'
                   )
                 }
                 return false
@@ -80,9 +81,9 @@ export default {
     goToOrdersList(statut) {
       if (statut === 'finished') {
         this.$store.commit('mvpPrep/mutate_openFinishedOrders', true)
-        console.log('print finished orders')
+        // console.log('print finished orders')
       }
-      console.log('go to orders list')
+      // console.log('go to orders list')
       this.$router.push({
         query: { path: 'ordersList' }
       })
@@ -92,11 +93,6 @@ export default {
     this.$store.commit('mvpPrep/mutate_openFinishedOrders', false)
   }
 }
-
-/* TODO: - commandes à préparer
-       - commandes terminés à être expédier
-
- */
 </script>
 
 <style scoped></style>

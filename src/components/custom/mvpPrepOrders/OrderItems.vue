@@ -12,7 +12,7 @@
 
 <script>
 import OrderItem from './OrderItem'
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'OrderItems',
@@ -29,23 +29,21 @@ export default {
       'modeFilter'
     ]),
 
+    ...mapGetters('mvpPrep', ['freshItems', 'dryItems']),
+
     sortedItemsList: function() {
-      if (this.currentOrderItems == null) return 0
-      return this.currentOrderItems.filter(element => {
-        if (this.modeFilter === 'fresh') {
-          return element._source.fresh
-        } else if (this.modeFilter === 'dry') {
-          return !element._source.fresh
-        } else {
-          return true
-        }
-      })
+      if (this.modeFilter === 'fresh') {
+        return this.freshItems
+      }
+      if (this.modeFilter === 'dry') {
+        return this.dryItems
+      }
+      return this.currentOrderItems
     }
   },
   components: { OrderItem },
   methods: {
     addProductToPreparedItems(product) {
-      console.log('prep')
       if (
         this.preparedProducts.filter(item => item._id === product._id).length >
         0
@@ -82,8 +80,4 @@ export default {
 }
 </script>
 
-<style scoped>
-.q-list:last-child {
-  animation: none !important;
-}
-</style>
+<style scoped></style>
